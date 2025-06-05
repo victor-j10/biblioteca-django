@@ -18,15 +18,17 @@ class AdminRequiredMixin:
             return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
-class BookListView(ListView):
+class BookListView(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'core/libro_list.html'
     context_object_name = 'books'
+    login_url = 'login'
     
-class BookDetailView(DetailView):
+class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
     template_name = 'core/libro_detail.html'
     context_object_name = 'book'
+    login_url = 'login'
 
 class BookCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     model = Book
@@ -45,7 +47,7 @@ def regular_required(view_func):
         if request.user.is_authenticated and request.user.role == 'regular':
             return view_func(request, *args, **kwargs)
         messages.error(request, "No tienes permiso para acceder a esta vista.")
-        return redirect('lista_libros')
+        return redirect('/')
     return _wrapped_view
 
 @method_decorator([login_required, regular_required], name='dispatch')
