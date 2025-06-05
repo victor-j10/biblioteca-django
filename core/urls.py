@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
+#se importan todos los métodos de las vistas
 from .views import (
     BookListView,
     BookDetailView,
@@ -9,6 +10,7 @@ from .views import (
     BorrowHistoryView
 )
 
+#se crean los path que serán accesibles desde la url, con sus respectivas vistas y templates
 urlpatterns = [
     path('', BookListView.as_view(), name='libro_list'),
     path('libros/<int:pk>/', BookDetailView.as_view(), name='libro_detail'),

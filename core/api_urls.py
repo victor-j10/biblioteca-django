@@ -1,5 +1,6 @@
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
+#se importan todas los métodos de las vistas de la api
 from .api_views import (
     BookListApiView, 
     BookDetailAPIView,
@@ -10,6 +11,7 @@ from .api_views import (
     ReturnBookAPIView
     )
 
+#se crean los path de las rutas que se pueden consultar en la api
 urlpatterns = [
     path('books/', BookListApiView.as_view(), name='api-book-list'),
     path('books/<int:pk>/', BookDetailAPIView.as_view(), name='api-book-detail'),
