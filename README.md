@@ -67,7 +67,17 @@ La API está construida con Django REST Framework y permite:
 
 ---
 
-## 🧪 Pruebas con Postman
+## Usuarios de prueba
+
+Puedes usar estos usuarios para ingresar a la app:
+
+| Rol        | Usuario   | Contraseña   |
+|------------|-----------|--------------|
+| Admin      | Rosa      | jhr22jose    |
+| Usuario    | jose      | jhr22jose    |
+
+---
+## Pruebas con Postman
 
 1. Obtener un token de acceso desde:
 
