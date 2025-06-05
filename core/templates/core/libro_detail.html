@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<style>
+    .book-detail-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-detail-container h2 {
+        font-size: 26px;
+        color: #1d3557;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .book-detail-container p {
+        font-size: 18px;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 25px;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #1d3557;
+        padding: 10px 16px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+    }
+
+    .back-link:hover {
+        background-color: #27496d;
+    }
+</style>
+
+<div class="book-detail-container">
+    <h2>{{ book.title }}</h2>
+    <p><strong>Autor:</strong> {{ book.author }}</p>
+    <p><strong>Año de Publicación:</strong> {{ book.publication_year }}</p>
+
+    <a href="{% url 'libro_list' %}" class="back-link">⬅ Volver al listado</a>
+</div>
+{% endblock %}

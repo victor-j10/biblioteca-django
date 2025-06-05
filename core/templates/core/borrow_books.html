@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<style>
+    .book-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .book-column {
+        background-color: #f9fafc;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .book-column h2 {
+        font-size: 20px;
+        color: #1d3557;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .book-item {
+        margin-bottom: 16px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .book-item strong {
+        color: #333;
+        font-size: 16px;
+    }
+
+    .book-item small {
+        color: #777;
+        margin-left: 10px;
+    }
+
+    .book-item form {
+        display: inline;
+    }
+
+    .book-item button {
+        background-color: #1d3557;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .book-item button:hover {
+        background-color: #457b9d;
+    }
+
+    .empty-message {
+        color: #777;
+        font-style: italic;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="book-section">
+    <div class="book-column">
+        <h2>📚 Libros Disponibles</h2>
+        {% for book in books %}
+            <div class="book-item">
+                <div>
+                    <strong>{{ book.title }}</strong>
+                    <small>({{ book.stock }} en stock)</small>
+                </div>
+                {% if book.stock > 0 and book not in borrowed_books %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="book_id" value="{{ book.id }}">
+                        <input type="hidden" name="action" value="borrow">
+                        <button type="submit">Tomar</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="empty-message">No hay libros disponibles.</div>
+        {% endfor %}
+    </div>
+
+    <div class="book-column">
+        <h2>📕 Libros Prestados</h2>
+        {% for book in borrowed_books %}
+            <div class="book-item">
+                <div><strong>{{ book.title }}</strong></div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="hidden" name="action" value="return">
+                    <button type="submit">Devolver</button>
+                </form>
+            </div>
+        {% empty %}
+            <div class="empty-message">No has tomado libros prestados.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

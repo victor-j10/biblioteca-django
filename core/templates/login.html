@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 60px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .login-container h2 {
+        margin-bottom: 20px;
+        color: #1d3557;
+    }
+
+    .login-form p {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .login-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #1d3557;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .login-form button:hover {
+        background-color: #27496d;
+    }
+
+    .error-message {
+        color: #e63946;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="login-container">
+    <h2>🔐 Iniciar Sesión</h2>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Entrar</button>
+    </form>
+
+    {% if form.errors %}
+    <p class="error-message">⚠️ Usuario o contraseña incorrectos.</p>
+    {% endif %}
+</div>
+{% endblock %}

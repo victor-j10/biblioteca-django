@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-container h2 {
+        color: #1d3557;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .book-form p {
+        margin-bottom: 18px;
+    }
+
+    .book-form input,
+    .book-form select,
+    .book-form textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        margin-top: 6px;
+    }
+
+    .book-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #1d3557;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .book-form button:hover {
+        background-color: #27496d;
+    }
+</style>
+
+<div class="form-container">
+    <h2>{% if form.instance.pk %}✏️ Editar{% else %}➕ Crear{% endif %} Libro</h2>
+
+    <form method="post" class="book-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            {% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #1d3557 0%, #27496d 100%);
+            color: #fff;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 40px;
+            background-color: #ffffff;
+            flex-grow: 1;
+            width: calc(100% - 250px);
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #f1f1f1;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover {
+            background-color: #457b9d;
+        }
+
+        .sidebar form button {
+            margin-top: 30px;
+            padding: 10px 16px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background-color: #e63946;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar form button:hover {
+            background-color: #d62828;
+        }
+
+        .main {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            color: #1d3557;
+        }
+
+        header div {
+            font-size: 16px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 14px 18px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            background-color: #e63946;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            color: #444;
+        }
+
+        tr:hover td {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>📚 Biblioteca</h2>
+        {% if user.is_authenticated %}
+        <a href="{% url 'libro_list' %}">🏠 Inicio</a>
+        
+        {% if user.role == 'admin' %}
+        <a href="{% url 'libro_create' %}">➕ Añadir Libro</a>
+        {% else %}
+        <a href="{% url 'borrow-books' %}">📖 Prestar un Libro</a>
+        <a href="{% url 'borrow-history' %}">🕘 Ver Historial</a>
+        {% endif %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">🔒 Cerrar sesión</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="main">
+        <header>
+            <h1>Gestión de Biblioteca</h1>
+            {% if user.is_authenticated %}
+            <div><strong>Usuario:</strong> {{ user.username|upper }}</div>
+            {%endif%}
+        </header>
+
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+
+</html>
