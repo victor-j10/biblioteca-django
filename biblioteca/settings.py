@@ -28,7 +28,12 @@ SECRET_KEY = 'django-insecure-&_+^cn_-r*o)!(k!-1=l$=c8r_dx^(7#owgs)p7^u2-zgb*($d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True' #True
 
-ALLOWED_HOSTS = ['biblioteca-django-504f01ccb252.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = [
+    'biblioteca.grizzlyhubs.xyz',
+    'biblioteca-django-504f01ccb252.herokuapp.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -99,7 +104,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3',
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=False
     )
 }
 
@@ -141,6 +146,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://biblioteca.grizzlyhubs.xyz',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
