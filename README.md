@@ -73,8 +73,7 @@ Puedes usar estos usuarios para ingresar a la app:
 
 | Rol        | Usuario   | Contraseña   |
 |------------|-----------|--------------|
-| Admin      | Rosa      | jhr22jose    |
-| Usuario    | jose      | jhr22jose    |
+| Usuario    | prueba1   | Test2211     |
 
 ---
 ## Pruebas con Postman
