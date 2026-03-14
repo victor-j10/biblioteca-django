@@ -39,6 +39,11 @@ CSRF_TRUSTED_ORIGINS = [
     'https://biblioteca.grizzlyhubs.xyz',
 ]
 
+# Configuración para Cloudflare / proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
